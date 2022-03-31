@@ -1,0 +1,18 @@
+version: '2'
+
+volumes:
+  postgres_data:
+    driver: local
+
+services:
+  chat-postgres:
+    container_name: chat-postgres
+    image: postgres:10.1
+    ports:
+      - "5431:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=chat
+    volumes:
+      - "postgres_data:/var/lib/postgresql/data"
