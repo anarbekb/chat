@@ -37,7 +37,7 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /var/palantir_telegram
+            cd /var/chat
             cp /var/chat/target/app.jar /var/chat/app.jar
             rm -rf /var/chat/target
             systemctl stop chat.service
