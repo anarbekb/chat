@@ -29,7 +29,7 @@ function connect(event) {
                 'Content-Type': 'application/json'
             }
         }
-        const response = fetch('http://localhost:8080/validate/username', options)
+        const response = fetch('http://80.87.202.218:8080/validate/username', options)
             .then(res => res.json())
             .then(res => {
                 if (res.isValid) {
