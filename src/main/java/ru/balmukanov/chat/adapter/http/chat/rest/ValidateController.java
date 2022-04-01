@@ -1,4 +1,4 @@
-package ru.balmukanov.chat.adapter.http.chat;
+package ru.balmukanov.chat.adapter.http.chat.rest;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +10,7 @@ import ru.balmukanov.chat.adapter.http.chat.dto.ValidateUsernameRequestDto;
 @RestController
 @RequestMapping("/validate")
 public class ValidateController {
+
 	@PostMapping("/username")
 	public ValidateResponseDto validateUsername(@RequestBody ValidateUsernameRequestDto request) {
 		if (request.getUsername().equals("ddddd")) {

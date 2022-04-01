@@ -33,8 +33,8 @@ function connect(event) {
             .then(res => res.json())
             .then(res => {
                 if (res.isValid) {
-                    usernamePage.classList.add('hidden');
-                    chatPage.classList.remove('hidden');
+                    showChatPage()
+                    loadMessages();
 
                     var socket = new SockJS('/ws');
                     stompClient = Stomp.over(socket);
@@ -48,10 +48,24 @@ function connect(event) {
     event.preventDefault();
 }
 
+function showChatPage() {
+    usernamePage.classList.add('hidden');
+    chatPage.classList.remove('hidden');
+}
+
+function loadMessages() {
+    fetch('http://80.87.202.218:8080/message/list')
+        .then(res => res.json())
+        .then(res => {
+            for (let i = 0; i < res.length; i++) {
+                onMessageHandler(res[i]);
+            }
+        });
+}
 
 function onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/public', onMessageReceived);
+    stompClient.subscribe('/topic/public', onMessageReceivedWebSocket);
 
     // Tell your username to the server
     stompClient.send("/app/chat.addUser",
@@ -84,9 +98,13 @@ function sendMessage(event) {
 }
 
 
-function onMessageReceived(payload) {
+function onMessageReceivedWebSocket(payload) {
     var message = JSON.parse(payload.body);
 
+    onMessageHandler(message);
+}
+
+function onMessageHandler(message) {
     var messageElement = document.createElement('li');
 
     switch (message.type) {
@@ -129,7 +147,6 @@ function onMessageReceived(payload) {
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
 }
-
 
 function getAvatarColor(messageSender) {
     var hash = 0;

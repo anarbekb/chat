@@ -1,4 +1,4 @@
-package ru.balmukanov.chat.adapter.http.chat;
+package ru.balmukanov.chat.adapter.http.chat.websocket;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,9 +8,9 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
+import ru.balmukanov.chat.adapter.http.chat.Mapper;
 import ru.balmukanov.chat.app.api.MessageService;
 import ru.balmukanov.chat.domain.Message;
-import ru.balmukanov.chat.domain.MessageType;
 
 import java.util.Objects;
 
